@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int              @id @default(autoincrement())
+  name           String
+  email          String           @unique
+  password       String
+  role           Role             @default(JOB_SEEKER)
+  createdAt      DateTime         @default(now())
+  resetOtp       String?
+  resetOtpExpiry DateTime?
+  applications   Application[]
+  jobsPosted     Job[]            @relation("PostedJobs")
+  profile        Profile?
+  resumeAnalyses ResumeAnalysis[]
+  interviewAttempts InterviewAttempt[]
+  learningPlans LearningPlan[]
+  passwordResetTokens PasswordResetToken[]
+}
+
+model Job {
+  id           Int           @id @default(autoincrement())
+  title        String
+  description  String
+  company      String
+  location     String?
+  salary       String?
+  postedById   Int
+  createdAt    DateTime      @default(now())
+  applications Application[]
+  postedBy     User          @relation("PostedJobs", fields: [postedById], references: [id])
+}
+
+model Application {
+  id        Int               @id @default(autoincrement())
+  userId    Int
+  jobId     Int
+  status    ApplicationStatus @default(PENDING)
+  appliedAt DateTime          @default(now())
+  job       Job               @relation(fields: [jobId], references: [id])
+  user      User              @relation(fields: [userId], references: [id])
+
+  @@unique([userId, jobId])
+}
+
+model Profile {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique
+  phone      String?
+  location   String?
+  summary    String?
+  skills     String?
+  education  String?
+  experience String?
+  resumeUrl  String?
+  resumeName String?
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model ResumeAnalysis {
+  id                Int      @id @default(autoincrement())
+  userId            Int
+  targetRole        String
+  matchPercentage   Int
+  matchedSkills     Json
+  missingSkills     Json
+  experienceSummary String
+  recommendations   Json
+  createdAt         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model InterviewAttempt {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  role         String
+  skill        String
+  difficulty   String
+  question     String
+  answer       String
+  score        Int
+  strengths    Json
+  weaknesses   Json
+  feedback     String
+  betterAnswer String
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model LearningPlan {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  targetRole String
+  plan       Json
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  tokenHash String    @unique
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+}
+
+enum Role {
+  JOB_SEEKER
+  RECRUITER
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWED
+  ACCEPTED
+  REJECTED
+}
