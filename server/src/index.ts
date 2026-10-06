@@ -15,6 +15,7 @@ import passwordResetRoutes from "./routes/passwordReset";
 import { startCleanupJob, runCleanup } from "./services/cleanup";
 
 const app = express();
+app.set("trust proxy", 1);
 
 // Render assigns the port through the PORT environment variable
 const PORT = Number(process.env.PORT) || 3000;

@@ -13,13 +13,20 @@ import InterviewPractice from "./pages/InterviewPractice";
 import LearningPlan from "./pages/LearningPlan";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Landing from "./pages/Landing";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
+      {/* Public landing page */}
+      <Route path="/" element={<Landing />} />
+      <Route path="/landing" element={<Navigate to="/" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+
+      {/* Protected routes */}
       <Route
         path="/jobs"
         element={
@@ -92,8 +99,9 @@ function App() {
           </ProtectedRoute>
         }
       />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-<Route path="/reset-password" element={<ResetPassword />} />
+
+      {/* Anything unknown goes to the landing page */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
