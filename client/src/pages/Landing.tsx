@@ -129,13 +129,6 @@ function HeroPreview() {
           </div>
         </div>
       </div>
-      <div className="absolute -bottom-5 -left-3 hidden items-center gap-3 rounded-xl border border-white/10 bg-[#0f1b2e]/90 px-4 py-3 shadow-xl backdrop-blur sm:flex">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-cyan-400 to-emerald-400 text-slate-900"><Icon name="learning" className="h-4 w-4" /></span>
-        <div>
-          <p className="text-sm font-semibold text-white">Study plan ready</p>
-          <p className="text-xs text-slate-400">3 priorities to work on</p>
-        </div>
-      </div>
     </div>
   );
 }
