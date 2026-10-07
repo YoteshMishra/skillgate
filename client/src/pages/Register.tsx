@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/axios";
+import GoogleButton, { OrDivider } from "../components/GoogleButton";
 
 const ROLES = [
   {
@@ -35,6 +36,22 @@ function Register() {
       navigate("/login");
     } catch (err: any) {
       setError(err.response?.data?.error || "Registration failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Google sign-up uses the role selected above the button, then logs the user in
+  const handleGoogle = async (credential: string) => {
+    setError("");
+    setLoading(true);
+    try {
+      const res = await api.post("/auth/google", { credential, role });
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      navigate("/jobs");
+    } catch (err: any) {
+      setError(err.response?.data?.error || "Google sign-up failed");
     } finally {
       setLoading(false);
     }
@@ -147,6 +164,13 @@ function Register() {
                 ))}
               </div>
             </fieldset>
+
+            {Boolean(import.meta.env.VITE_GOOGLE_CLIENT_ID) && (
+              <>
+                <GoogleButton mode="signup" onCredential={handleGoogle} />
+                <OrDivider />
+              </>
+            )}
 
             <div>
               <label htmlFor="name" className={labelClass}>
