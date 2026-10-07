@@ -39,6 +39,14 @@ const RECRUITER = [
   "Search candidate profiles and find the right fit faster",
 ];
 
+const FAQ = [
+  ["Is the resume analyzer free?", "Yes. You can run it without an account. To keep it fair for everyone, each visitor can run up to 3 analyses per hour."],
+  ["Do you store my resume?", "The free analyzer on this page does not save your resume or its results to our database. The text is sent to an AI model to produce the analysis."],
+  ["Which files can I upload?", "PDF resumes up to 5 MB. PDFs with selectable text work best, since scanned images cannot be read."],
+  ["Do I need an account for interview practice and the learning plan?", "Yes. Both are available to logged-in job seekers, so your attempts and your plan stay saved to your account."],
+  ["Can recruiters use SkillGate?", "Yes. Recruiters can sign up to post jobs, manage their openings, review applicants and update each applicant's status."],
+];
+
 const toList = (x: unknown): string[] =>
   Array.isArray(x)
     ? x.map((i: any) => (typeof i === "string" ? i : i?.title ?? i?.skill ?? i?.text ?? "")).filter(Boolean)
@@ -59,7 +67,7 @@ function Icon({ name, className = "h-5 w-5" }: { name: string; className?: strin
 function Logo() {
   return (
     <span className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-white">
-      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-teal-600 to-teal-700 text-white shadow-lg shadow-teal-500/30">
+      <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-600 text-white">
         <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M4 20V10a8 8 0 0116 0v10" />
           <path d="M9 20v-6a3 3 0 016 0v6" />
@@ -104,7 +112,7 @@ function Ring({ pct, size = 112 }: { pct: number; size?: number }) {
 function HeroPreview() {
   return (
     <div className="relative mx-auto w-full max-w-md">
-      <div className="absolute -inset-6 rounded-full bg-linear-to-tr from-teal-500/25 via-cyan-500/20 to-sky-500/25 blur-3xl" aria-hidden="true" />
+      <div className="absolute -inset-6 rounded-full bg-linear-to-tr from-teal-500/15 via-cyan-500/10 to-sky-500/15 blur-3xl" aria-hidden="true" />
       <div className="relative rounded-2xl border border-white/10 bg-[#0f1b2e]/80 p-6 shadow-2xl shadow-teal-500/10 backdrop-blur">
         <div className="flex items-center gap-5">
           <Ring pct={82} />
@@ -169,7 +177,7 @@ function ResumeTry() {
         <div>
           <span className="text-sm font-semibold text-slate-200">Resume (PDF, max 5 MB)</span>
           <label className="mt-2 flex cursor-pointer items-center gap-3 rounded-xl border-2 border-dashed border-white/15 bg-white/5 px-4 py-3 text-sm text-slate-300 transition hover:border-cyan-400/60 hover:bg-white/10 focus-within:border-cyan-400">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-teal-500 to-cyan-400 text-white"><Icon name="resume" className="h-5 w-5" /></span>
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-teal-400/10 text-teal-300 ring-1 ring-inset ring-teal-400/20"><Icon name="resume" className="h-5 w-5" /></span>
             <span className="truncate">{file ? file.name : "Choose a PDF file"}</span>
             <input type="file" accept=".pdf" className="sr-only" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
           </label>
@@ -180,7 +188,7 @@ function ResumeTry() {
         </label>
         <div className="sm:col-span-2">
           <button disabled={loading}
-            className="w-full rounded-xl bg-linear-to-r from-teal-600 to-teal-700 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:brightness-110 focus:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/40 disabled:opacity-70 sm:w-auto">
+            className="w-full rounded-lg bg-teal-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-500 focus:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/40 disabled:opacity-70 sm:w-auto">
             {loading ? "Analyzing... this can take up to 30 seconds" : "Analyze my resume"}
           </button>
         </div>
@@ -257,16 +265,16 @@ export default function Landing() {
 
   const focus = "focus:outline-none focus-visible:ring-4 focus-visible:ring-teal-400/40";
   const itemClass = `flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-200 hover:bg-white/10 hover:text-white ${focus}`;
-  const btnGhost = `rounded-xl px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white ${focus}`;
-  const btnSolid = `rounded-xl bg-linear-to-r from-teal-600 to-teal-700 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:brightness-110 ${focus}`;
-  const btnOutline = `rounded-xl border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10 ${focus}`;
+  const btnGhost = `rounded-lg px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white ${focus}`;
+  const btnSolid = `rounded-lg bg-teal-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-500 ${focus}`;
+  const btnOutline = `rounded-lg border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10 ${focus}`;
   const h2 = "text-3xl font-bold tracking-tight text-white sm:text-4xl";
 
   return (
     <div className="relative min-h-screen overflow-x-clip bg-linear-to-b from-[#0b1324] via-[#0c192c] to-[#0e2438] text-slate-200 antialiased">
       {/* Background glows */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[900px] bg-[radial-gradient(50rem_28rem_at_20%_0%,rgba(20,184,166,0.16),transparent),radial-gradient(40rem_26rem_at_85%_10%,rgba(56,189,248,0.14),transparent),radial-gradient(36rem_20rem_at_55%_40%,rgba(16,185,129,0.10),transparent)]" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[700px] bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[900px] bg-[radial-gradient(50rem_28rem_at_20%_0%,rgba(20,184,166,0.10),transparent),radial-gradient(40rem_26rem_at_85%_10%,rgba(56,189,248,0.08),transparent),radial-gradient(36rem_20rem_at_55%_40%,rgba(16,185,129,0.05),transparent)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[700px] bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden="true" />
 
       {/* Navbar */}
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0b1324]/70 backdrop-blur-xl">
@@ -281,13 +289,15 @@ export default function Landing() {
                 <div className="absolute left-0 mt-2 w-64 rounded-2xl border border-white/10 bg-[#0f1b2e] p-2 shadow-2xl shadow-black/50">
                   {SHOWCASE.map((f) => (
                     <button key={f.key} onClick={() => open(f.key)} className={itemClass}>
-                      <span className={`flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br ${f.glow} text-white`}><Icon name={f.key} className="h-4 w-4" /></span>
+                      <span className={`flex h-8 w-8 items-center justify-center rounded-lg bg-teal-400/10 text-teal-300 ring-1 ring-inset ring-teal-400/20`}><Icon name={f.key} className="h-4 w-4" /></span>
                       {f.title}
                     </button>
                   ))}
                 </div>
               )}
             </div>
+            <button onClick={() => scrollToId("how-it-works")} className={`${btnGhost} hidden md:block`}>How it works</button>
+            <button onClick={() => scrollToId("faq")} className={`${btnGhost} hidden md:block`}>FAQ</button>
           </div>
 
           <div className="hidden items-center gap-2 md:flex">
@@ -311,7 +321,7 @@ export default function Landing() {
             <p className="px-3 pb-1 text-sm font-semibold text-slate-500">Features</p>
             {SHOWCASE.map((f) => (
               <button key={f.key} onClick={() => open(f.key)} className={itemClass}>
-                <span className={`flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br ${f.glow} text-white`}><Icon name={f.key} className="h-4 w-4" /></span>
+                <span className={`flex h-8 w-8 items-center justify-center rounded-lg bg-teal-400/10 text-teal-300 ring-1 ring-inset ring-teal-400/20`}><Icon name={f.key} className="h-4 w-4" /></span>
                 {f.title}
               </button>
             ))}
@@ -335,10 +345,10 @@ export default function Landing() {
           <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-2">
             <div>
               <span className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-medium text-cyan-200 ${glass}`}>
-                <span className="h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_2px_rgba(34,211,238,0.8)]" aria-hidden="true" />
+                <span className="h-2 w-2 rounded-full bg-teal-400" aria-hidden="true" />
                 Free resume analysis, no sign-up needed
               </span>
-              <h1 className="mt-6 bg-linear-to-br from-white via-teal-50 to-cyan-200 bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl lg:text-6xl lg:leading-[1.05]">
+              <h1 className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl lg:leading-[1.08]">
                 Find the job. Fix the gaps. Get hired.
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-slate-400">
@@ -365,7 +375,7 @@ export default function Landing() {
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {SHOWCASE.map((f) => (
               <article key={f.key} className={`group relative flex flex-col rounded-2xl p-7 transition hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.08] ${glass}`}>
-                <span className={`flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br ${f.glow} text-white shadow-lg`}>
+                <span className={`flex h-12 w-12 items-center justify-center rounded-xl bg-teal-400/10 text-teal-300 ring-1 ring-inset ring-teal-400/20`}>
                   <Icon name={f.key} className="h-6 w-6" />
                 </span>
                 <h3 className="mt-5 text-xl font-semibold text-white">{f.title}</h3>
@@ -379,13 +389,14 @@ export default function Landing() {
         </section>
 
         {/* How it works */}
-        <section className="py-20">
+        <section id="how-it-works" className="scroll-mt-16 border-y border-white/5 bg-white/[0.02] py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className={`${h2} text-center`}>How it works</h2>
+            <p className="mx-auto mt-4 max-w-xl text-center text-lg text-slate-400">Three steps from your first resume upload to a clear study plan.</p>
             <ol className="mt-12 grid gap-6 md:grid-cols-3">
               {STEPS.map(([title, text], i) => (
                 <li key={title} className={`rounded-2xl p-7 ${glass}`}>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-teal-500 to-cyan-500 text-base font-bold text-white shadow-lg shadow-teal-500/25">{i + 1}</span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-teal-600 text-base font-bold text-white">{i + 1}</span>
                   <h3 className="mt-5 text-lg font-semibold text-white">{title}</h3>
                   <p className="mt-2 leading-7 text-slate-400">{text}</p>
                 </li>
@@ -396,7 +407,7 @@ export default function Landing() {
 
         {/* Resume analyzer */}
         <section id="resume-analyzer" className="relative scroll-mt-16 py-20">
-          <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-[40rem] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-600/15 blur-3xl" aria-hidden="true" />
+          <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-[40rem] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-600/10 blur-3xl" aria-hidden="true" />
           <div className="relative mx-auto max-w-3xl px-4 sm:px-6">
             <h2 className={`${h2} text-center`}>Try the Resume Analyzer</h2>
             <p className="mx-auto mt-4 max-w-xl text-center text-lg text-slate-400">No account needed. Upload a PDF and see how well it matches the role you want.</p>
@@ -408,6 +419,7 @@ export default function Landing() {
         <section className="py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className={`${h2} text-center`}>What you get after you sign up</h2>
+            <p className="mx-auto mt-4 max-w-xl text-center text-lg text-slate-400">One account, with the right tools for job seekers and for recruiters.</p>
             <div className="mt-12 grid gap-6 lg:grid-cols-2">
               {[
                 { title: "For job seekers", items: SEEKER, tone: "from-teal-500/35 to-cyan-500/15" },
@@ -431,37 +443,66 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* FAQ */}
+        <section id="faq" className="mx-auto max-w-3xl scroll-mt-16 px-4 py-20 sm:px-6">
+          <h2 className={`${h2} text-center`}>Frequently asked questions</h2>
+          <div className="mt-10 divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/5">
+            {FAQ.map(([q, a]) => (
+              <details key={q} className="group px-6 py-5">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-white [&::-webkit-details-marker]:hidden">
+                  {q}
+                  <span aria-hidden="true" className="text-xl leading-none text-teal-300 transition group-open:rotate-45">+</span>
+                </summary>
+                <p className="mt-3 leading-7 text-slate-400">{a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
         {/* Final CTA */}
         <section className="px-4 pb-20 sm:px-6">
-          <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-teal-600/40 via-cyan-700/30 to-sky-700/40 px-6 py-16 text-center sm:px-12">
+          <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-linear-to-br from-teal-600/25 to-sky-700/20 px-6 py-16 text-center sm:px-12">
             <div className="pointer-events-none absolute -top-20 left-1/2 h-60 w-96 max-w-full -translate-x-1/2 rounded-full bg-cyan-400/20 blur-3xl" aria-hidden="true" />
             <h2 className="relative text-3xl font-bold tracking-tight text-white sm:text-4xl">Ready to get started?</h2>
             <p className="relative mx-auto mt-4 max-w-xl text-lg text-teal-50/80">Create a free account as a job seeker or a recruiter.</p>
-            <Link to={loggedIn ? "/jobs" : "/register"} className={`relative mt-8 inline-block rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-teal-700 shadow-lg transition hover:bg-teal-50 ${focus}`}>
+            <Link to={loggedIn ? "/jobs" : "/register"} className={`relative mt-8 inline-block rounded-xl bg-teal-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-500 ${focus}`}>
               {loggedIn ? "Open app" : "Sign up free"}
             </Link>
           </div>
         </section>
       </main>
 
-      <footer className="relative border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row sm:px-6">
-          <Logo />
-          <nav className="flex gap-6 text-sm text-slate-400" aria-label="Footer">
-            <button onClick={() => scrollToId("features")} className="hover:text-white">Features</button>
-            <button onClick={() => open("resume")} className="hover:text-white">Resume Analyzer</button>
-            <Link to="/login" className="hover:text-white">Log in</Link>
-            <Link to="/register" className="hover:text-white">Sign up</Link>
+      <footer className="relative border-t border-white/10 bg-[#0b1324]/60">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
+          <div className="md:col-span-2">
+            <Logo />
+            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-400">An AI-powered job portal that connects job seekers and recruiters, and helps candidates get job-ready.</p>
+          </div>
+          <nav aria-label="Product">
+            <p className="text-sm font-semibold text-white">Product</p>
+            <ul className="mt-4 space-y-2.5 text-sm text-slate-400">
+              <li><button onClick={() => scrollToId("features")} className="hover:text-white">Features</button></li>
+              <li><button onClick={() => open("resume")} className="hover:text-white">Resume Analyzer</button></li>
+              <li><button onClick={() => scrollToId("how-it-works")} className="hover:text-white">How it works</button></li>
+              <li><button onClick={() => scrollToId("faq")} className="hover:text-white">FAQ</button></li>
+            </ul>
           </nav>
-          <p className="text-sm text-slate-500">&copy; {new Date().getFullYear()} SkillGate</p>
+          <nav aria-label="Account">
+            <p className="text-sm font-semibold text-white">Account</p>
+            <ul className="mt-4 space-y-2.5 text-sm text-slate-400">
+              <li><Link to="/login" className="hover:text-white">Log in</Link></li>
+              <li><Link to="/register" className="hover:text-white">Sign up</Link></li>
+            </ul>
+          </nav>
         </div>
+        <div className="border-t border-white/10 py-6 text-center text-sm text-slate-500">&copy; {new Date().getFullYear()} SkillGate. All rights reserved.</div>
       </footer>
 
       {/* Login required modal */}
       {gate && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 backdrop-blur-sm" onClick={() => setGate(null)} role="dialog" aria-modal="true">
           <div className="w-full max-w-sm rounded-2xl border border-white/10 bg-[#0f1b2e] p-7 shadow-2xl shadow-teal-500/20" onClick={(e) => e.stopPropagation()}>
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-teal-500 to-cyan-400 text-white"><Icon name={gate.startsWith("Interview") ? "interview" : "learning"} className="h-6 w-6" /></span>
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal-400/10 text-teal-300 ring-1 ring-inset ring-teal-400/20"><Icon name={gate.startsWith("Interview") ? "interview" : "learning"} className="h-6 w-6" /></span>
             <h3 className="mt-4 text-xl font-semibold text-white">Log in to use {gate}</h3>
             <p className="mt-2 leading-7 text-slate-400">Create a free account or log in to practice interviews and get your personalised learning plan.</p>
             <div className="mt-6 flex gap-2">
