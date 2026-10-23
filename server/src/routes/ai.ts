@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import rateLimit from "express-rate-limit";
-import { analyzeResume } from "../services/huggingface";
+import { analyzeResume } from "../services/resumeService";
 import { extractTextFromPdf } from "../services/pdfParser";
 import prisma from "../prismaClient"; // keep whatever import your other routes use
 import { requireAuth } from "../middleware/auth";

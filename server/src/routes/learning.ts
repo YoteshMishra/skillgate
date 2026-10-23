@@ -2,7 +2,7 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import prisma from "../prismaClient";
 import { requireAuth } from "../middleware/auth";
-import { generateLearningPlan } from "../services/learningAI";
+import { generateLearningPlan } from "../services/learningService";
 import type {
   InterviewSkillStat,
   LearningPlanContent,

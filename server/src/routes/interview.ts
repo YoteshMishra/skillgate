@@ -7,7 +7,7 @@ import {
   evaluateAnswer,
   generateQuestion,
   getRecommendations,
-} from "../services/interviewAI";
+} from "../services/interviewService";
 
 const router = express.Router();
 

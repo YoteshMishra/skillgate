@@ -58,7 +58,7 @@ function Login() {
       setLoading(false);
     }
   };
-  console.log("Google client ID:", import.meta.env.VITE_GOOGLE_CLIENT_ID);
+
 
   const inputClass =
     "block w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-600/20";
